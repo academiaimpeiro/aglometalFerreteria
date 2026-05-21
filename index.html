@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-  <title>Aglometal | Forja de lujo en zona minera | Galería interactiva</title>
+  <title>Aglometal</title>
   <!-- Google Fonts + Font Awesome -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -227,12 +227,32 @@
       flex: 1;
       text-align: center;
     }
-    .hero-image img {
+    /* Estilos para imágenes con fallback */
+    .image-placeholder {
+      background: #e9dfd1;
+      border-radius: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 280px;
+      width: 100%;
+      color: #8b5a2b;
+      font-weight: 500;
+      font-family: 'Inter', sans-serif;
+      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.1);
+    }
+    .hero-image img, .gallery-img {
       max-width: 100%;
       border-radius: 32px;
       box-shadow: 0 20px 35px -12px rgba(0,0,0,0.15);
       transition: transform 0.3s;
       cursor: pointer;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+    .hero-image img:hover, .gallery-img:hover {
+      transform: scale(1.01);
     }
     /* Discount banner */
     .discount-banner {
@@ -318,6 +338,8 @@
       box-shadow: 0 12px 24px rgba(0,0,0,0.05);
       transition: all 0.3s;
       cursor: pointer;
+      display: flex;
+      flex-direction: column;
     }
     .gallery-item:hover {
       transform: translateY(-6px);
@@ -328,7 +350,8 @@
       height: 250px;
       object-fit: cover;
       transition: transform 0.4s ease;
-      pointer-events: none; /* el contenedor gestiona el click */
+      background-color: #e9dfd1;
+      display: block;
     }
     .gallery-item:hover .gallery-img {
       transform: scale(1.03);
@@ -469,7 +492,6 @@
       align-items: center;
       justify-content: center;
       backdrop-filter: blur(8px);
-      transition: opacity 0.3s ease;
     }
     .lightbox-modal.active {
       display: flex;
@@ -493,7 +515,6 @@
       object-fit: contain;
       border-radius: 24px;
       box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-      transition: transform 0.2s;
     }
     .carousel-btn {
       position: absolute;
@@ -518,12 +539,8 @@
       background: rgba(184,115,51,0.8);
       transform: translateY(-50%) scale(1.05);
     }
-    .prev-btn {
-      left: 20px;
-    }
-    .next-btn {
-      right: 20px;
-    }
+    .prev-btn { left: 20px; }
+    .next-btn { right: 20px; }
     .close-lightbox {
       position: absolute;
       top: 24px;
@@ -564,21 +581,12 @@
       pointer-events: none;
     }
     @media (max-width: 768px) {
-      .carousel-btn {
-        width: 42px;
-        height: 42px;
-        font-size: 1.8rem;
-      }
+      .carousel-btn { width: 42px; height: 42px; font-size: 1.8rem; }
       .prev-btn { left: 8px; }
       .next-btn { right: 8px; }
       .close-lightbox { top: 12px; right: 16px; width: 40px; height: 40px; font-size: 1.8rem; }
       .lightbox-image { max-width: 95vw; max-height: 80vh; }
-    }
-    /* mobile menu */
-    @media (max-width: 768px) {
-      .container {
-        padding: 0 20px;
-      }
+      .container { padding: 0 20px; }
       .nav-links {
         display: none;
         width: 100%;
@@ -591,33 +599,15 @@
         text-align: center;
         box-shadow: 0 15px 30px rgba(0,0,0,0.1);
       }
-      .nav-links.show {
-        display: flex;
-      }
-      .mobile-menu {
-        display: block;
-      }
-      .hero-text h1 {
-        font-size: 2rem;
-      }
-      .hero-grid {
-        flex-direction: column-reverse;
-      }
-      .discount-banner {
-        margin: 16px 16px 24px;
-        flex-direction: column;
-        text-align: center;
-      }
-      .section-title {
-        font-size: 1.8rem;
-      }
-      .gallery-img {
-        height: 210px;
-      }
+      .nav-links.show { display: flex; }
+      .mobile-menu { display: block; }
+      .hero-text h1 { font-size: 2rem; }
+      .hero-grid { flex-direction: column-reverse; }
+      .discount-banner { margin: 16px 16px 24px; flex-direction: column; text-align: center; }
+      .section-title { font-size: 1.8rem; }
+      .gallery-img { height: 210px; }
     }
-    html {
-      scroll-padding-top: 90px;
-    }
+    html { scroll-padding-top: 90px; }
   </style>
 </head>
 <body>
@@ -672,7 +662,7 @@
       </div>
     </div>
     <div class="hero-image">
-      <img src="/bandasPlataformaMinera.png" alt="Forja de lujo" id="heroImg">
+      <img src="bandasPlataformaMinera.png" alt="Forja de lujo" id="heroImg" onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20600%20400%22%3E%3Crect%20width%3D%22600%22%20height%3D%22400%22%20fill%3D%22%23e9dfd1%22%2F%3E%3Ctext%20x%3D%22300%22%20y%3D%22200%22%20font-family%3D%27Inter%27%20font-size%3D%2220%22%20fill%3D%22%238b5a2b%22%20text-anchor%3D%22middle%22%3EForja%20de%20Lujo%3C%2Ftext%3E%3C%2Fsvg%3E'; this.style.objectFit='cover';">
     </div>
   </div>
 </section>
@@ -691,23 +681,22 @@
   </div>
 </section>
 
-<!-- Galería proyectos con datos mejorados y carrusel -->
+<!-- Galería proyectos con efecto carrusel -->
 <section id="proyectos" class="gallery">
   <div class="container">
     <div class="section-title">Proyectos destacados</div>
     <div class="section-sub">Toca cualquier imagen para verla a tamaño completo y navegar en carrusel</div>
     <div class="gallery-grid" id="galleryGrid">
-      <!-- Items de galería - cada imagen podrá abrir lightbox con carrusel -->
       <div class="gallery-item" data-img-index="0">
-        <img class="gallery-img" src="puertaEngris.jpeg" alt="Puerta lujosa">
+        <img class="gallery-img" src="puertaEngris.jpeg" alt="Puerta lujosa" onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20500%20300%22%3E%3Crect%20width%3D%22500%22%20height%3D%22300%22%20fill%3D%22%23e9dfd1%22%2F%3E%3Ctext%20x%3D%22250%22%20y%3D%22150%22%20font-family%3D%27Inter%27%20font-size%3D%2218%22%20fill%3D%22%238b5a2b%22%20text-anchor%3D%22middle%22%3EPuerta%20Lujosa%3C%2Ftext%3E%3C%2Fsvg%3E';">
         <div class="gallery-info"><h4>Puerta lujosa</h4><p>Una puerta con alma de acero y acabado sofisticado.</p></div>
       </div>
       <div class="gallery-item" data-img-index="1">
-        <img class="gallery-img" src="rejas.jpeg" alt="Rejas">
+        <img class="gallery-img" src="rejas.jpeg" alt="Rejas" onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20500%20300%22%3E%3Crect%20width%3D%22500%22%20height%3D%22300%22%20fill%3D%22%23e9dfd1%22%2F%3E%3Ctext%20x%3D%22250%22%20y%3D%22150%22%20font-family%3D%27Inter%27%20font-size%3D%2218%22%20fill%3D%22%238b5a2b%22%20text-anchor%3D%22middle%22%3ERejas%20de%20Seguridad%3C%2Ftext%3E%3C%2Fsvg%3E';">
         <div class="gallery-info"><h4>Rejas para frente de casa</h4><p>Seguridad y diseño duradero, estilo contemporáneo.</p></div>
       </div>
       <div class="gallery-item" data-img-index="2">
-        <img class="gallery-img" src="ventanas.jpeg" alt="Ventanas">
+        <img class="gallery-img" src="ventanas.jpeg" alt="Ventanas" onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20500%20300%22%3E%3Crect%20width%3D%22500%22%20height%3D%22300%22%20fill%3D%22%23e9dfd1%22%2F%3E%3Ctext%20x%3D%22250%22%20y%3D%22150%22%20font-family%3D%27Inter%27%20font-size%3D%2218%22%20fill%3D%22%238b5a2b%22%20text-anchor%3D%22middle%22%3EPuerta%20Acabado%20Lujo%3C%2Ftext%3E%3C%2Fsvg%3E';">
         <div class="gallery-info"><h4>Puerta con acabado de lujo</h4><p>Elegancia y resistencia en cada detalle.</p></div>
       </div>
     </div>
@@ -761,7 +750,7 @@
       <div class="footer-col"><h4>Contacto rápido</h4><p><i class="fab fa-whatsapp"></i> +57 3136458665</p></div>
       <div class="footer-col social"><h4>Síguenos</h4><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-facebook"></i></a><a href="#"><i class="fab fa-linkedin"></i></a></div>
     </div>
-    <div class="copyright" style="margin-top: 40px; text-align: center; font-size: 0.75rem;"></div>
+    <div class="copyright" style="margin-top: 40px; text-align: center; font-size: 0.75rem;">© Aglometal · Calidad que transforma</div>
   </div>
 </footer>
 
@@ -777,26 +766,31 @@
 </div>
 
 <script>
-  // ----- CONFIGURACIÓN DE GALERÍA CON CARRUSEL -----
-  // Obtener todas las imágenes de la galería (los items .gallery-item)
-  const galleryItems = Array.from(document.querySelectorAll('.gallery-item'));
-  // Extraer array de objetos con src y alt/título
-  let galleryImages = [];
-  galleryItems.forEach((item, idx) => {
-    const imgElement = item.querySelector('.gallery-img');
-    if (imgElement) {
-      const src = imgElement.getAttribute('src');
-      const alt = imgElement.getAttribute('alt') || `Imagen ${idx+1}`;
-      galleryImages.push({ src, alt, title: item.querySelector('.gallery-info h4')?.innerText || 'Proyecto' });
+  // ---------- GALERÍA CON CARRUSEL (LIGHTBOX) ----------
+  // Recopilar todas las imágenes de la galería y la imagen del héroe
+  const galleryImagesNodes = [];
+  // Hero image
+  const heroImg = document.getElementById('heroImg');
+  if (heroImg) {
+    galleryImagesNodes.push({
+      src: heroImg.src,
+      alt: heroImg.alt || 'Forja de lujo',
+      title: 'Forja Premium'
+    });
+  }
+  // Imágenes de la galería
+  const galleryItems = document.querySelectorAll('.gallery-item');
+  galleryItems.forEach(item => {
+    const img = item.querySelector('.gallery-img');
+    if (img) {
+      galleryImagesNodes.push({
+        src: img.src,
+        alt: img.alt,
+        title: item.querySelector('.gallery-info h4')?.innerText || 'Proyecto'
+      });
     }
   });
-  
-  // También la imagen del hero si se desea incluir en el carrusel? Para experiencia completa agregamos hero pero para mantener fidelidad, la hero también abrirá pero con conjunto propio? Mejor: la hero también se puede ver en lightbox como extra pero para coherencia añadimos una imagen extra? Opcional pero queda elegante: añadimos hero al carrusel como extra.
-  const heroImgElem = document.getElementById('heroImg');
-  if (heroImgElem && heroImgElem.src && !heroImgElem.src.includes('undefined')) {
-    galleryImages.unshift({ src: heroImgElem.src, alt: 'Forja de lujo Aglometal', title: 'Puerta de lujo industrial' });
-  }
-  
+
   let currentIndex = 0;
   const lightboxModal = document.getElementById('lightboxModal');
   const lightboxImg = document.getElementById('lightboxImg');
@@ -804,85 +798,54 @@
   const nextBtn = document.getElementById('nextImageBtn');
   const closeBtn = document.getElementById('closeLightboxBtn');
   const counterSpan = document.getElementById('imageCounter');
-  
+
   function openLightbox(index) {
-    if (!galleryImages.length) return;
-    currentIndex = (index + galleryImages.length) % galleryImages.length;
-    updateLightboxImage();
+    if (!galleryImagesNodes.length) return;
+    currentIndex = (index + galleryImagesNodes.length) % galleryImagesNodes.length;
+    updateLightbox();
     lightboxModal.classList.add('active');
     document.body.style.overflow = 'hidden';
   }
-  
-  function updateLightboxImage() {
-    const imgData = galleryImages[currentIndex];
+
+  function updateLightbox() {
+    const imgData = galleryImagesNodes[currentIndex];
     if (imgData) {
       lightboxImg.src = imgData.src;
       lightboxImg.alt = imgData.alt;
-      if (counterSpan) counterSpan.innerText = `${currentIndex+1} / ${galleryImages.length}`;
+      counterSpan.innerText = `${currentIndex+1} / ${galleryImagesNodes.length}`;
     }
   }
-  
-  function nextImage() {
-    if (!galleryImages.length) return;
-    currentIndex = (currentIndex + 1) % galleryImages.length;
-    updateLightboxImage();
-  }
-  
-  function prevImage() {
-    if (!galleryImages.length) return;
-    currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
-    updateLightboxImage();
-  }
-  
-  function closeLightbox() {
-    lightboxModal.classList.remove('active');
-    document.body.style.overflow = '';
-  }
-  
-  // Asignar click a cada elemento de galería (inclusive si hero está fuera, también se agrega click al hero)
+
+  function nextImage() { currentIndex = (currentIndex + 1) % galleryImagesNodes.length; updateLightbox(); }
+  function prevImage() { currentIndex = (currentIndex - 1 + galleryImagesNodes.length) % galleryImagesNodes.length; updateLightbox(); }
+  function closeLightbox() { lightboxModal.classList.remove('active'); document.body.style.overflow = ''; }
+
+  // Event listeners a las imágenes (hero y galería)
+  if (heroImg) heroImg.addEventListener('click', () => openLightbox(0));
   galleryItems.forEach((item, idx) => {
-    // El índice de galería original sin hero es idx, pero galleryImages tiene hero al inicio si existe, entonces ajustamos:
-    let imageArrayIndex = idx;
-    if (heroImgElem && heroImgElem.src) imageArrayIndex = idx + 1;
-    item.addEventListener('click', (e) => {
-      e.stopPropagation();
-      openLightbox(imageArrayIndex);
-    });
+    item.addEventListener('click', () => openLightbox(idx + 1));
   });
-  
-  // Añadir click a la imagen del hero para abrir lightbox también (modo carrusel)
-  if (heroImgElem) {
-    heroImgElem.style.cursor = 'pointer';
-    heroImgElem.addEventListener('click', () => {
-      openLightbox(0); // la hero es la primera en el array
-    });
-  }
-  
-  // Eventos del modal
-  if (prevBtn) prevBtn.addEventListener('click', (e) => { e.stopPropagation(); prevImage(); });
-  if (nextBtn) nextBtn.addEventListener('click', (e) => { e.stopPropagation(); nextImage(); });
-  if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
-  lightboxModal.addEventListener('click', (e) => {
-    if (e.target === lightboxModal) closeLightbox();
-  });
-  
-  // Soporte teclado: flechas y escape
+
+  prevBtn.addEventListener('click', (e) => { e.stopPropagation(); prevImage(); });
+  nextBtn.addEventListener('click', (e) => { e.stopPropagation(); nextImage(); });
+  closeBtn.addEventListener('click', closeLightbox);
+  lightboxModal.addEventListener('click', (e) => { if (e.target === lightboxModal) closeLightbox(); });
   document.addEventListener('keydown', (e) => {
     if (!lightboxModal.classList.contains('active')) return;
     if (e.key === 'ArrowRight') nextImage();
     if (e.key === 'ArrowLeft') prevImage();
     if (e.key === 'Escape') closeLightbox();
   });
-  
-  // Menú móvil y formulario igual que antes (manteniendo)
+
+  // Menú móvil
   const menuBtn = document.getElementById('mobileMenuBtn');
   const navLinksElem = document.getElementById('navLinks');
   if(menuBtn) {
     menuBtn.addEventListener('click', () => navLinksElem.classList.toggle('show'));
     document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', () => navLinksElem.classList.remove('show')));
   }
-  
-  // Formulario web3forms
+
+  // Formulario funcional
   const form = document.getElementById('contactForm');
   if(form) {
     form.addEventListener('submit', async function(e) {
