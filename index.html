@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>Aglometal | Forja de lujo en zona minera | Galería interactiva</title>
+  <!-- Google Fonts + Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fefcf7;
+      color: #1e2a2e;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+      width: 100%;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    @media (min-width: 1280px) {
+      .container {
+        max-width: 1280px;
+        padding: 0 40px;
+      }
+    }
+
+    h1, h2, .logo h1, .section-title, .gallery-info h4 {
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* Botones modernos */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #b87333;
+      color: white;
+      font-weight: 600;
+      padding: 14px 28px;
+      border-radius: 60px;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      border: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+      box-shadow: 0 8px 20px rgba(184,115,51,0.25);
+      letter-spacing: 0.3px;
+    }
+    .btn-primary:hover {
+      background: #9a5e2a;
+      transform: translateY(-3px);
+      box-shadow: 0 12px 24px rgba(184,115,51,0.3);
+    }
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      border: 2px solid #b87333;
+      color: #b87333;
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 60px;
+      text-decoration: none;
+      transition: 0.2s;
+    }
+    .btn-outline:hover {
+      background: #b8733310;
+      transform: translateY(-2px);
+    }
+
+    /* WhatsApp flotante */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 24px;
+      right: 20px;
+      background: linear-gradient(135deg, #25D366, #20b859);
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      box-shadow: 0 8px 24px rgba(37,211,102,0.4);
+      z-index: 1000;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      animation: soft-pulse 2s infinite;
+    }
+    @keyframes soft-pulse {
+      0% { transform: scale(1); box-shadow: 0 8px 24px rgba(37,211,102,0.3); }
+      50% { transform: scale(1.06); box-shadow: 0 12px 28px rgba(37,211,102,0.5); }
+      100% { transform: scale(1); box-shadow: 0 8px 24px rgba(37,211,102,0.3); }
+    }
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+      background: #1da154;
+      animation: none;
+    }
+
+    /* Navbar */
+    .navbar {
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(16px);
+      position: sticky;
+      top: 0;
+      z-index: 99;
+      padding: 14px 0;
+      border-bottom: 1px solid #f0e2d0;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.02);
+    }
+    .nav-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo h1 {
+      font-size: 1.7rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #8b5a2b, #c9824b);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      letter-spacing: -0.5px;
+    }
+    .logo span {
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: #a07a52;
+      display: block;
+      margin-top: 2px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+    }
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 500;
+      color: #2f2a24;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #b87333;
+      transition: width 0.2s;
+    }
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    .mobile-menu {
+      display: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: #b87333;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 60px 0 70px;
+      background: radial-gradient(circle at 10% 30%, #fdf7ef, #f7ecdd);
+    }
+    .hero-grid {
+      display: flex;
+      align-items: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+    .hero-text {
+      flex: 1.2;
+    }
+    .hero-text .badge {
+      background: #e5d6c4;
+      color: #8b5a2b;
+      padding: 6px 16px;
+      border-radius: 60px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .hero-text h1 {
+      font-size: 2.6rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 18px;
+      color: #2b241c;
+    }
+    .hero-text h1 span {
+      color: #b87333;
+      border-bottom: 3px solid #e5c8a8;
+    }
+    .hero-text p {
+      font-size: 1rem;
+      color: #5a4a38;
+      margin-bottom: 28px;
+    }
+    .hero-image {
+      flex: 1;
+      text-align: center;
+    }
+    .hero-image img {
+      max-width: 100%;
+      border-radius: 32px;
+      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.15);
+      transition: transform 0.3s;
+      cursor: pointer;
+    }
+    /* Discount banner */
+    .discount-banner {
+      background: linear-gradient(115deg, #c47e44, #b05d27);
+      margin: 20px 24px 30px;
+      border-radius: 60px;
+      padding: 20px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      box-shadow: 0 12px 24px rgba(176,93,39,0.25);
+    }
+    .discount-text {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: white;
+    }
+    .discount-text i {
+      font-size: 2.2rem;
+    }
+    .discount-badge {
+      background: #2c2b26;
+      padding: 10px 22px;
+      border-radius: 60px;
+      color: #ffdd99;
+      font-weight: 800;
+    }
+    /* Secciones */
+    .services, .gallery, .process-section {
+      padding: 64px 0;
+    }
+    .section-title {
+      font-size: 2.2rem;
+      text-align: center;
+      margin-bottom: 12px;
+      color: #2b241c;
+    }
+    .section-sub {
+      text-align: center;
+      color: #7a634b;
+      max-width: 600px;
+      margin: 0 auto 48px auto;
+    }
+    .services-grid, .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 32px;
+    }
+    .service-card {
+      background: white;
+      border-radius: 32px;
+      padding: 32px 24px;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+      border: 1px solid #f0e2d0;
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+    .service-card:hover {
+      transform: translateY(-8px);
+    }
+    .service-icon {
+      background: #fef3e8;
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 40px;
+      margin: 0 auto 20px;
+    }
+    .service-icon i {
+      font-size: 2.2rem;
+      color: #b87333;
+    }
+    /* Galería items con cursor pointer */
+    .gallery-item {
+      background: white;
+      border-radius: 32px;
+      overflow: hidden;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.05);
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .gallery-item:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 32px rgba(0,0,0,0.1);
+    }
+    .gallery-img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+      pointer-events: none; /* el contenedor gestiona el click */
+    }
+    .gallery-item:hover .gallery-img {
+      transform: scale(1.03);
+    }
+    .gallery-info {
+      padding: 20px;
+    }
+    .gallery-info h4 {
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+    }
+    /* Proceso */
+    .process-steps {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      justify-content: center;
+    }
+    .step-card {
+      flex: 1;
+      min-width: 200px;
+      background: white;
+      border-radius: 28px;
+      padding: 28px 20px;
+      text-align: center;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.03);
+      border: 1px solid #f0e2d0;
+    }
+    .step-number {
+      width: 56px;
+      height: 56px;
+      background: #b8733315;
+      color: #b87333;
+      font-size: 1.6rem;
+      font-weight: 800;
+      border-radius: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+    }
+    /* Ubicación + formulario */
+    .location-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    .map-placeholder {
+      flex: 1;
+      min-height: 280px;
+      border-radius: 32px;
+      overflow: hidden;
+    }
+    .map-placeholder iframe {
+      width: 100%;
+      height: 100%;
+      min-height: 280px;
+    }
+    .contact-details {
+      flex: 1;
+      background: #fffaf3;
+      padding: 24px 28px;
+      border-radius: 32px;
+    }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .form-contact {
+      background: white;
+      border-radius: 40px;
+      padding: 36px 32px;
+      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.08);
+      border: 1px solid #efe2d2;
+      margin-top: 30px;
+    }
+    .form-group input, .form-group textarea {
+      width: 100%;
+      padding: 16px 20px;
+      border-radius: 60px;
+      border: 1px solid #e2d4c4;
+      background: #fefcf9;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+    }
+    .form-group input:focus, .form-group textarea:focus {
+      border-color: #b87333;
+      box-shadow: 0 0 0 3px rgba(184,115,51,0.15);
+      outline: none;
+    }
+    .btn-submit {
+      width: 100%;
+      justify-content: center;
+    }
+    .cta-banner {
+      background: linear-gradient(115deg, #2b261e, #3e2d1f);
+      margin: 20px 24px 50px;
+      border-radius: 48px;
+      padding: 48px 32px;
+      text-align: center;
+      color: white;
+    }
+    footer {
+      background: #1f1a14;
+      color: #cfc2ae;
+      padding: 48px 0 28px;
+      border-radius: 40px 40px 0 0;
+    }
+    .footer-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 32px;
+    }
+    .social i {
+      font-size: 1.5rem;
+      margin-right: 20px;
+      transition: 0.2s;
+    }
+    .social i:hover {
+      color: #b87333;
+      transform: translateY(-2px);
+    }
+
+    /* ========= LIGHTBOX / CARRUSEL MODAL ========= */
+    .lightbox-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.95);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(8px);
+      transition: opacity 0.3s ease;
+    }
+    .lightbox-modal.active {
+      display: flex;
+      animation: fadeIn 0.2s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .lightbox-container {
+      position: relative;
+      max-width: 90vw;
+      max-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .lightbox-image {
+      max-width: 90vw;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 24px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      transition: transform 0.2s;
+    }
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(8px);
+      border: none;
+      color: white;
+      font-size: 2.5rem;
+      width: 56px;
+      height: 56px;
+      border-radius: 60px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      z-index: 2002;
+    }
+    .carousel-btn:hover {
+      background: rgba(184,115,51,0.8);
+      transform: translateY(-50%) scale(1.05);
+    }
+    .prev-btn {
+      left: 20px;
+    }
+    .next-btn {
+      right: 20px;
+    }
+    .close-lightbox {
+      position: absolute;
+      top: 24px;
+      right: 32px;
+      font-size: 2.4rem;
+      color: white;
+      background: rgba(0,0,0,0.5);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: 0.2s;
+      z-index: 2002;
+      border: none;
+    }
+    .close-lightbox:hover {
+      background: #b87333;
+      transform: scale(1.05);
+    }
+    .counter {
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      color: rgba(255,255,255,0.8);
+      background: rgba(0,0,0,0.5);
+      width: fit-content;
+      margin: 0 auto;
+      padding: 6px 18px;
+      border-radius: 60px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      backdrop-filter: blur(4px);
+      pointer-events: none;
+    }
+    @media (max-width: 768px) {
+      .carousel-btn {
+        width: 42px;
+        height: 42px;
+        font-size: 1.8rem;
+      }
+      .prev-btn { left: 8px; }
+      .next-btn { right: 8px; }
+      .close-lightbox { top: 12px; right: 16px; width: 40px; height: 40px; font-size: 1.8rem; }
+      .lightbox-image { max-width: 95vw; max-height: 80vh; }
+    }
+    /* mobile menu */
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 20px;
+      }
+      .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        background: white;
+        padding: 24px;
+        margin-top: 16px;
+        border-radius: 32px;
+        gap: 20px;
+        text-align: center;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+      }
+      .nav-links.show {
+        display: flex;
+      }
+      .mobile-menu {
+        display: block;
+      }
+      .hero-text h1 {
+        font-size: 2rem;
+      }
+      .hero-grid {
+        flex-direction: column-reverse;
+      }
+      .discount-banner {
+        margin: 16px 16px 24px;
+        flex-direction: column;
+        text-align: center;
+      }
+      .section-title {
+        font-size: 1.8rem;
+      }
+      .gallery-img {
+        height: 210px;
+      }
+    }
+    html {
+      scroll-padding-top: 90px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- WhatsApp flotante -->
+<a href="https://wa.me/573136458665?text=Hola%20Aglometal!%20Quiero%20aprovechar%20el%20DESCUENTO%20MINERO%20y%20cotizar%20puertas%20de%20lujo" 
+   class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<nav class="navbar">
+  <div class="container nav-flex">
+    <div class="logo">
+      <h1>Aglometal</h1>
+      <span>Acabados de lujo · Zona Minera</span>
+    </div>
+    <div class="mobile-menu" id="mobileMenuBtn">
+      <i class="fas fa-bars"></i>
+    </div>
+    <div class="nav-links" id="navLinks">
+      <a href="#inicio">Inicio</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#proyectos">Galería</a>
+      <a href="#form-contacto">Cotizar</a>
+      <a href="#ubicacion">Ubicación</a>
+    </div>
+  </div>
+</nav>
+
+<!-- BANNER DESCUENTO -->
+<div class="discount-banner">
+  <div class="discount-text">
+    <i class="fas fa-gem"></i>
+    <span>🔥 OFERTA MINERA 🔥</span>
+  </div>
+  <div class="discount-badge">
+    <i class="fab fa-whatsapp"></i> 20% DESCUENTO
+  </div>
+  <div style="font-size: 0.85rem; color:#fff3e0;">Contacta hoy · Cupo limitado</div>
+</div>
+
+<!-- Hero Section -->
+<section id="inicio" class="hero">
+  <div class="container hero-grid">
+    <div class="hero-text">
+      <div class="badge"><i class="fas fa-hard-hat"></i>  Resistencia & Estilo</div>
+      <h1>Puertas, ventanas <span>con acabados de lujo</span> para minería de alto rendimiento.</h1>
+      <p>Diseño robusto + elegancia premium. Aprovecha nuestro descuento especial para proyectos en el Chocó.</p>
+      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+        <a href="https://wa.me/573136458665?text=Hola%20Aglometal!%20Quiero%20mi%20descuento%20del%2020%25%20en%20puertas%20de%20lujo" target="_blank" class="btn-primary"><i class="fab fa-whatsapp"></i> WhatsApp 20% OFF</a>
+        <a href="#form-contacto" class="btn-outline"><i class="fas fa-percent"></i> Cotizar ahora</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="/bandasPlataformaMinera.png" alt="Forja de lujo" id="heroImg">
+    </div>
+  </div>
+</section>
+
+<!-- Servicios -->
+<section id="servicios" class="services">
+  <div class="container">
+    <div class="section-title">Especialistas en forja pesada</div>
+    <div class="section-sub">Soluciones industriales con acabados exclusivos.</div>
+    <div class="services-grid">
+      <div class="service-card"><div class="service-icon"><i class="fas fa-door-open"></i></div><h3>Puertas</h3><p>Puertas resistentes y elegantes, diseño estructural premium.</p></div>
+      <div class="service-card"><div class="service-icon"><i class="fas fa-window-maximize"></i></div><h3>Ventanas</h3><p>Resistencia extrema a humedad y polvo, estilo moderno.</p></div>
+      <div class="service-card"><div class="service-icon"><i class="fas fa-tractor"></i></div><h3>Estructuras</h3><p>Barandas, plataformas y protecciones a medida.</p></div>
+      <div class="service-card"><div class="service-icon"><i class="fas fa-gem"></i></div><h3>Acabados de lujo</h3><p>Materiales resistentes y pintura epóxica de alto brillo.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Galería proyectos con datos mejorados y carrusel -->
+<section id="proyectos" class="gallery">
+  <div class="container">
+    <div class="section-title">Proyectos destacados</div>
+    <div class="section-sub">Toca cualquier imagen para verla a tamaño completo y navegar en carrusel</div>
+    <div class="gallery-grid" id="galleryGrid">
+      <!-- Items de galería - cada imagen podrá abrir lightbox con carrusel -->
+      <div class="gallery-item" data-img-index="0">
+        <img class="gallery-img" src="puertaEngris.jpeg" alt="Puerta lujosa">
+        <div class="gallery-info"><h4>Puerta lujosa</h4><p>Una puerta con alma de acero y acabado sofisticado.</p></div>
+      </div>
+      <div class="gallery-item" data-img-index="1">
+        <img class="gallery-img" src="rejas.jpeg" alt="Rejas">
+        <div class="gallery-info"><h4>Rejas para frente de casa</h4><p>Seguridad y diseño duradero, estilo contemporáneo.</p></div>
+      </div>
+      <div class="gallery-item" data-img-index="2">
+        <img class="gallery-img" src="ventanas.jpeg" alt="Ventanas">
+        <div class="gallery-info"><h4>Puerta con acabado de lujo</h4><p>Elegancia y resistencia en cada detalle.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<h2 style="text-align:center;">✨ Cotiza ahora y asegura 20% OFF ✨</h2>
+
+<!-- Ubicación + Formulario -->
+<section id="ubicacion" class="location-section">
+  <div class="container">
+    <div class="location-grid">
+      <div class="map-placeholder">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.893588219894!2d-76.65735778525601!3d5.694952195899976!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e2b776fbe5bbee3%3A0x6c8f8dab5b8e7d23!2sQuibd%C3%B3%2C%20Choc%C3%B3!5e0!3m2!1ses!2sco!4v1700000000000!5m2!1ses!2sco" loading="lazy"></iframe>
+      </div>
+      <div class="contact-details">
+        <h3><i class="fas fa-map-marker-alt"></i> Base operativa</h3>
+        <div class="contact-item"><i class="fas fa-location-dot"></i><p><strong>Zona Minera - Quibdó, Chocó</strong><br>Calle 25 #8-42, Barrio zona minera</p></div>
+        <div class="contact-item"><i class="fab fa-whatsapp"></i><p><strong>+57 313 645 8665</strong> — Proyectos rapidos</p></div>
+        <div class="contact-item"><i class="far fa-clock"></i><div>Atención: Lun-Vie 7am-6pm · Sáb 8am-1pm</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" id="form-contacto">
+    <div class="form-contact">
+      <h3 style="font-family: 'Playfair Display'; margin-bottom: 16px;"><i class="fas fa-percent"></i> Cotiza tu proyecto y obtén 20% DESCUENTO</h3>
+      <form action="https://api.web3forms.com/submit" method="POST" id="contactForm">
+        <input type="hidden" name="access_key" value="f9124597-abdd-4ccb-b076-cb33b7726e0d">
+        <input type="hidden" name="redirect" value="https://aglometal.com/gracias">
+        <div class="form-group"><input type="text" name="name" placeholder="Nombre completo *" required></div>
+        <div class="form-group"><input type="tel" name="phone" placeholder="WhatsApp / Teléfono *" required></div>
+        <div class="form-group"><input type="email" name="email" placeholder="Correo electrónico" required></div>
+        <div class="form-group"><textarea name="message" rows="3" placeholder="Cuéntanos tu proyecto: tipo de puertas, ventanas, estructuras mineras..." required></textarea></div>
+        <button type="submit" class="btn-primary btn-submit"><i class="fab fa-whatsapp"></i> Enviar y obtener descuento</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<div class="cta-banner">
+  <h2>¿Listo para una estructura de alto rendimiento?</h2>
+  <p style="margin: 16px auto 24px; max-width: 500px;">Cotiza ahora y asegura 20% de descuento más envío preferencial.</p>
+  <a href="https://wa.me/573136458665?text=Hola%20Aglometal!%20Quiero%20aprovechar%20el%20descuento%20del%2020%25%20para%20mi%20proyecto%20minero" target="_blank" class="btn-primary" style="background:#c9824b;"><i class="fab fa-whatsapp"></i> WhatsApp directo · Descuento garantizado</a>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col"><h3 style="color:#e3bc7a;">Aglometal</h3><p>Forja de lujo para zona minera · 20 años de experiencia</p><i class="fas fa-medal"></i> Resistencia + Estilo</div>
+      <div class="footer-col"><h4>Contacto rápido</h4><p><i class="fab fa-whatsapp"></i> +57 3136458665</p></div>
+      <div class="footer-col social"><h4>Síguenos</h4><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-facebook"></i></a><a href="#"><i class="fab fa-linkedin"></i></a></div>
+    </div>
+    <div class="copyright" style="margin-top: 40px; text-align: center; font-size: 0.75rem;"></div>
+  </div>
+</footer>
+
+<!-- Lightbox + Carrusel Modular -->
+<div id="lightboxModal" class="lightbox-modal">
+  <button class="close-lightbox" id="closeLightboxBtn"><i class="fas fa-times"></i></button>
+  <button class="carousel-btn prev-btn" id="prevImageBtn"><i class="fas fa-chevron-left"></i></button>
+  <div class="lightbox-container">
+    <img id="lightboxImg" class="lightbox-image" src="" alt="Vista ampliada">
+  </div>
+  <button class="carousel-btn next-btn" id="nextImageBtn"><i class="fas fa-chevron-right"></i></button>
+  <div class="counter" id="imageCounter"></div>
+</div>
+
+<script>
+  // ----- CONFIGURACIÓN DE GALERÍA CON CARRUSEL -----
+  // Obtener todas las imágenes de la galería (los items .gallery-item)
+  const galleryItems = Array.from(document.querySelectorAll('.gallery-item'));
+  // Extraer array de objetos con src y alt/título
+  let galleryImages = [];
+  galleryItems.forEach((item, idx) => {
+    const imgElement = item.querySelector('.gallery-img');
+    if (imgElement) {
+      const src = imgElement.getAttribute('src');
+      const alt = imgElement.getAttribute('alt') || `Imagen ${idx+1}`;
+      galleryImages.push({ src, alt, title: item.querySelector('.gallery-info h4')?.innerText || 'Proyecto' });
+    }
+  });
+  
+  // También la imagen del hero si se desea incluir en el carrusel? Para experiencia completa agregamos hero pero para mantener fidelidad, la hero también abrirá pero con conjunto propio? Mejor: la hero también se puede ver en lightbox como extra pero para coherencia añadimos una imagen extra? Opcional pero queda elegante: añadimos hero al carrusel como extra.
+  const heroImgElem = document.getElementById('heroImg');
+  if (heroImgElem && heroImgElem.src && !heroImgElem.src.includes('undefined')) {
+    galleryImages.unshift({ src: heroImgElem.src, alt: 'Forja de lujo Aglometal', title: 'Puerta de lujo industrial' });
+  }
+  
+  let currentIndex = 0;
+  const lightboxModal = document.getElementById('lightboxModal');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const prevBtn = document.getElementById('prevImageBtn');
+  const nextBtn = document.getElementById('nextImageBtn');
+  const closeBtn = document.getElementById('closeLightboxBtn');
+  const counterSpan = document.getElementById('imageCounter');
+  
+  function openLightbox(index) {
+    if (!galleryImages.length) return;
+    currentIndex = (index + galleryImages.length) % galleryImages.length;
+    updateLightboxImage();
+    lightboxModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  
+  function updateLightboxImage() {
+    const imgData = galleryImages[currentIndex];
+    if (imgData) {
+      lightboxImg.src = imgData.src;
+      lightboxImg.alt = imgData.alt;
+      if (counterSpan) counterSpan.innerText = `${currentIndex+1} / ${galleryImages.length}`;
+    }
+  }
+  
+  function nextImage() {
+    if (!galleryImages.length) return;
+    currentIndex = (currentIndex + 1) % galleryImages.length;
+    updateLightboxImage();
+  }
+  
+  function prevImage() {
+    if (!galleryImages.length) return;
+    currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+    updateLightboxImage();
+  }
+  
+  function closeLightbox() {
+    lightboxModal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  
+  // Asignar click a cada elemento de galería (inclusive si hero está fuera, también se agrega click al hero)
+  galleryItems.forEach((item, idx) => {
+    // El índice de galería original sin hero es idx, pero galleryImages tiene hero al inicio si existe, entonces ajustamos:
+    let imageArrayIndex = idx;
+    if (heroImgElem && heroImgElem.src) imageArrayIndex = idx + 1;
+    item.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openLightbox(imageArrayIndex);
+    });
+  });
+  
+  // Añadir click a la imagen del hero para abrir lightbox también (modo carrusel)
+  if (heroImgElem) {
+    heroImgElem.style.cursor = 'pointer';
+    heroImgElem.addEventListener('click', () => {
+      openLightbox(0); // la hero es la primera en el array
+    });
+  }
+  
+  // Eventos del modal
+  if (prevBtn) prevBtn.addEventListener('click', (e) => { e.stopPropagation(); prevImage(); });
+  if (nextBtn) nextBtn.addEventListener('click', (e) => { e.stopPropagation(); nextImage(); });
+  if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
+  lightboxModal.addEventListener('click', (e) => {
+    if (e.target === lightboxModal) closeLightbox();
+  });
+  
+  // Soporte teclado: flechas y escape
+  document.addEventListener('keydown', (e) => {
+    if (!lightboxModal.classList.contains('active')) return;
+    if (e.key === 'ArrowRight') nextImage();
+    if (e.key === 'ArrowLeft') prevImage();
+    if (e.key === 'Escape') closeLightbox();
+  });
+  
+  // Menú móvil y formulario igual que antes (manteniendo)
+  const menuBtn = document.getElementById('mobileMenuBtn');
+  const navLinksElem = document.getElementById('navLinks');
+  if(menuBtn) {
+    menuBtn.addEventListener('click', () => navLinksElem.classList.toggle('show'));
+    document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', () => navLinksElem.classList.remove('show')));
+  }
+  
+  // Formulario web3forms
+  const form = document.getElementById('contactForm');
+  if(form) {
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalText = submitBtn.innerHTML;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Enviando...';
+      submitBtn.disabled = true;
+      try {
+        const formData = new FormData(form);
+        const response = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData });
+        const result = await response.json();
+        if(result.success) {
+          alert('✅ ¡Mensaje enviado! Recibirás tu código de descuento del 20% por WhatsApp o correo.');
+          form.reset();
+        } else {
+          alert('❌ Error, intenta de nuevo o escríbenos por WhatsApp.');
+        }
+      } catch (error) {
+        alert('Error de conexión. Contáctanos por WhatsApp para tu descuento.');
+      } finally {
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+      }
+    });
+  }
+</script>
+</body>
+</html>
